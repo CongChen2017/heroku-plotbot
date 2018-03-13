@@ -1,0 +1,1 @@
+worker: python TweetPicTest01.py
