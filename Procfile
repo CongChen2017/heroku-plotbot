@@ -1,1 +1,1 @@
-worker: python TweetPicTest01.py
+worker: python plotbotHW.py
