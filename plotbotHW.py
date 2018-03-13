@@ -123,4 +123,8 @@ def update_twitter():
             send_out_tweet(target, user)
             time.sleep(5)
 
-update_twitter()
+# Set timer
+t_end = time.time() + 3600
+while time.time() < t_end:
+    update_twitter()
+    time.sleep(300)
