@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib import style
 import time
 import os
+import numpy as np
 style.use('ggplot')
 
 # Import and Initialize Sentiment Analyzer
