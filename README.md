@@ -1,3 +1,6 @@
+
+
+```python
 # Dependencies
 import matplotlib
 matplotlib.use('Agg')
@@ -24,14 +27,20 @@ access_token_secret = os.getenv("access_token_secret")
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
+```
 
+
+```python
 # User handle
 user = "@BzzOrange"
+```
 
+
+```python
 # define a function to search recent mentions
 def search_mentions():
     # Search for all tweets
-    tweets = api.search(user, count=50, result_type="recent")
+    tweets = api.search(user, count=10, result_type="recent")
     # generate empty lists
     mention_list = []
     
@@ -47,20 +56,26 @@ def search_mentions():
                 mention = [target_term, tweet_id, tweet_author]
                 mention_list.append(mention)
     return mention_list
+```
 
+
+```python
 # define a function to get up to 100 analyzed targets
 def analyzed_targets():
     # generate empty list
     analyzed_list = []
     # get bot's tweets
-    bot_tweets = api.home_timeline(count = 200)
+    bot_tweets = api.home_timeline(count = 100)
     #loop through tweets
     for tweet in bot_tweets:
         if tweet['entities']['user_mentions']:
             analyzed = tweet['entities']['user_mentions'][0]['screen_name']
             analyzed_list.append(analyzed)
     return analyzed_list
+```
 
+
+```python
 # filter out analyzed target from recent mentions and generate a to do list
 def filter_to_do_list(mention_list, analyzed_list):
     to_do_list = []
@@ -68,7 +83,10 @@ def filter_to_do_list(mention_list, analyzed_list):
         if mention[0] not in analyzed_list:
             to_do_list.append(mention)
     return to_do_list
+```
 
+
+```python
 # define a function to do sentiment analysis
 def sentiment_analysis(target):
     # get 500 tweets put texts into a list
@@ -88,7 +106,10 @@ def sentiment_analysis(target):
         compound = results["compound"]
         sentiment.append(compound)
     return sentiment
+```
 
+
+```python
 # define a function to plot analysis results
 def plot_analysis_data(sentiment, target):
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -102,13 +123,21 @@ def plot_analysis_data(sentiment, target):
     plt.title(f"Sentiment Analysis of Tweets ({now}) for @{target}")
     plt.ylabel("Tweet Polarity")
     plt.xlabel("Tweets Ago")
+#     plt.legend(loc='center left', bbox_to_anchor=(1, 0.9))
     plt.savefig("fig.png")
+#     plt.show()
+```
 
+
+```python
 # define a funtion to send out tweet with analysis data
 def send_out_tweet(target, user):
     msg = f"New Tweet Analysis: @{target} (Thx @{user}!!)"
     api.update_with_media("fig.png", msg)
+```
 
+
+```python
 # define a function to update twitter
 def update_twitter():
     mention_list = search_mentions()
@@ -122,9 +151,18 @@ def update_twitter():
             plot_analysis_data(sentiment, target)
             send_out_tweet(target, user)
             time.sleep(5)
+```
 
+
+```python
 # Set timer
 t_end = time.time() + 3600
 while time.time() < t_end:
     update_twitter()
     time.sleep(300)
+```
+
+
+```python
+
+```
