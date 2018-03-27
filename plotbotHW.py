@@ -106,7 +106,7 @@ def plot_analysis_data(sentiment, target):
 
 # define a funtion to send out tweet with analysis data
 def send_out_tweet(target, user):
-    msg = f"New Tweet Analysis: @{target} (Thx @{user}!!)"
+    msg = f"New Tweet Analysis: #{target} (Thx #{user}!!)"
     api.update_with_media("fig.png", msg)
 
 # define a function to update twitter
