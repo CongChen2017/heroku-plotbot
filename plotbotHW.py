@@ -99,7 +99,7 @@ def plot_analysis_data(sentiment, target):
     # # Incorporate the other graph properties
     now = datetime.now()
     now = now.strftime("%m/%d/%y")
-    plt.title(f"Sentiment Analysis of Tweets ({now}) for @{target}")
+    plt.title(f"Sentiment Analysis of Tweets ({now}) for #{target}")
     plt.ylabel("Tweet Polarity")
     plt.xlabel("Tweets Ago")
     plt.savefig("fig.png")
@@ -124,7 +124,7 @@ def update_twitter():
             time.sleep(5)
 
 # Set timer
-t_end = time.time() + 3600
-while time.time() < t_end:
-    update_twitter()
-    time.sleep(300)
+# t_end = time.time() + 3600
+# while time.time() < t_end:
+#     update_twitter()
+#     time.sleep(300)
